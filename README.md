@@ -13,6 +13,14 @@ Iniciou-se o desenvolvimento da API em NodeJS, disponível no repositório: http
 
 O frontend está sendo desenvolvido em PWA, e já possui páginas de login e cadastro de usuário/empresa. Possui uma dashboard (que ainda está em desenvolvimento, portanto não está inteiramente funcional), uma página que lista as categorias de produtos do mercado e páginas nas quais o usuário pode cadastrar e editar as informações dos produtos.
 
+## Como rodar o projeto
+
+1. É necessário clonar o repositório
+2. Instalar a extensão Live Server
+3. Rodar a extensão
+4. Abrir o link disponibilizado pela mesma em um navegador
+5. OBS: No navegador do computador utilizar o DevTools para visualizar na forma mobile
+
 ## Principais Telas
 
 ![Dashboard](/assets/imgs/dashboard.png)
