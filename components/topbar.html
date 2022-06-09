@@ -7,9 +7,8 @@
     <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-            <img class="img-profile rounded-circle"
-                src="img/undraw_profile.svg">
+            <span class="mr-2 d-lg-inline text-gray-600 small" id="nameProfile"></span>
+            <img class="img-profile rounded-circle" id="logoProfile">
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -27,3 +26,19 @@
     </li>
 
 </ul>
+
+<script>
+    var user = JSON.parse(localStorage.getItem('user') || '{}');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+
+    profile();
+    async function profile(){
+        await axios({
+        method: 'GET',
+        url: `https://intellistock-api.herokuapp.com/companies/${user.id}`
+    }).then(response => {
+        $('#nameProfile').val(response.data.name);
+        document.getElementById('logoProfile').setAttribute("src", "data:image/jpg;base64," + `${response.data.logo}`);
+    })
+    } 
+</script>

@@ -1,4 +1,4 @@
-const { src } = require("gulp");
+// const { src } = require("gulp");
 
 async function login(){
     let email = $('#email').val();
@@ -27,7 +27,7 @@ async function login(){
 
         localStorage.setItem('user', JSON.stringify(user))
 
-        window.location.href = "../views/home.html";
+        window.location.href = "./views/home.html";
     }).catch(error => {
 
         if (error.response.status == 403) {

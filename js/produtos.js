@@ -5,14 +5,16 @@ produtos();
 async function produtos(){
     await axios({
         method: 'GET',
-        url: 'https://intellistock-api.herokuapp.com/products'
+        url: `https://intellistock-api.herokuapp.com/products/company/${user.id}`
     }).then(response => {
+
+        console.log(response);
 
         $('#dataTable').DataTable().destroy();
         
         var tbody = document.getElementById('conteudo-produtos');
 
-        response.data.forEach(produtos => {
+        response.data.products.forEach(produtos => {
 
             console.log(produtos);
 

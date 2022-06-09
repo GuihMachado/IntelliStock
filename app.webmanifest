@@ -1,5 +1,5 @@
 {
-	"short_name": "IntelliStock",
+	"short_name": "IStock",
 	"name": "IntelliStock",
 	"icons": [
 	{
@@ -13,7 +13,7 @@
 		"type": "image/png"
 	}
 	],
-	"start_url": "./login.html",
+	"start_url": "/",
 	"display": "minimal-ui",
 	"background_color": "#FF6F6F",
 	"theme_color": "#FF6F6F"
