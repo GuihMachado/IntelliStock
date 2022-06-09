@@ -6,7 +6,21 @@ async function produtos(){
     await axios({
         method: 'GET',
         url: `https://intellistock-api.herokuapp.com/products/company/${user.id}`
-    }).then(response => {
+    }).then(async (response) => {
+
+        const cache = await caches.open('my-cache');
+
+        const optionsReq = {
+            ignoreVary: true, // ignore differences in Headers
+            ignoreMethod: true, // ignore differences in HTTP methods
+            ignoreSearch: true // ignore differences in query strings
+        }
+        
+        const respTest = await cache.match('/teste123', optionsReq)
+
+        respTest.json().then(resposta => {
+            console.log(resposta.id);
+        })
 
         console.log(response);
 

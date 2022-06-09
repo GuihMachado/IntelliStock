@@ -1,11 +1,9 @@
 // const { src } = require("gulp");
+const cacheAvailable = 'caches' in self;
 
 async function login(){
     let email = $('#email').val();
     let password = $('#password').val();
-
-    console.log(email);
-    console.log(password);
 
     await axios({
         method: 'POST',
@@ -14,8 +12,9 @@ async function login(){
             email,
             password
         }
-    }).then(response => {
-        console.log(response);
+    }).then(async (response) => {
+
+        console.log(response.data.user.id);
 
         let user = {
             id: response.data.user.id,
@@ -26,8 +25,29 @@ async function login(){
         }
 
         localStorage.setItem('user', JSON.stringify(user))
+        const options = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
 
-        window.location.href = "./views/home.html";
+        const cache = await caches.open('my-cache');
+        
+        await cache.put('/teste123', new Response (`{"id":"${user.id}", "name":"${user.name}", "email":"${user.email}", "token":"${user.token}", "company_id":"${user.company_id}"}`, options))
+        
+        const optionsReq = {
+            ignoreVary: true, // ignore differences in Headers
+            ignoreMethod: true, // ignore differences in HTTP methods
+            ignoreSearch: true // ignore differences in query strings
+        }
+        
+        const respTest = await cache.match('/teste123', optionsReq)
+
+        respTest.json().then(resposta => {
+            console.log(resposta);
+        })
+
+        // window.location.href = "./views/home.html";
     }).catch(error => {
 
         if (error.response.status == 403) {

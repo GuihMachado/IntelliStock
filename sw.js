@@ -16,7 +16,7 @@ self.addEventListener('activate', event => {
     console.dir(event);
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', async event => {
       // fires whenever the app requests a resource (file or data)
       // normally this is where the service worker would check to see
       // if the requested resource is in the local cache before going
@@ -25,7 +25,11 @@ self.addEventListener('fetch', event => {
       // Next, go get the requested resource from the network, 
       // The respondWith() method of FetchEvent prevents the browser's 
       // default fetch handling, and allows you to provide a promise for a Response yourself.
-      event.respondWith(fetch(event.request));
+      try {
+          await event.respondWith(fetch(event.request));
+      } catch (error) {
+          console.log(error);
+      }
 });
 
 self.addEventListener('install', event => {
