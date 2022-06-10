@@ -26,19 +26,3 @@
     </li>
 
 </ul>
-
-<script>
-    var user = JSON.parse(localStorage.getItem('user') || '{}');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
-
-    profile();
-    async function profile(){
-        await axios({
-        method: 'GET',
-        url: `https://intellistock-api.herokuapp.com/companies/${user.id}`
-    }).then(response => {
-        $('#nameProfile').val(response.data.name);
-        document.getElementById('logoProfile').setAttribute("src", "data:image/jpg;base64," + `${response.data.logo}`);
-    })
-    } 
-</script>

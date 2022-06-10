@@ -1,11 +1,16 @@
-var user = JSON.parse(localStorage.getItem('user') || '{}');
-axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
-
 axios.defaults.headers.patch['Content-Type'] = 'Multipart/form-data';
 
 //Listagem
 meuPerfil();
 async function meuPerfil() {
+    const cache = await caches.open('my-cache');
+    
+    const cacheResponse = await cache.match('/user');
+
+    user = await cacheResponse.json()
+    
+    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+
     await axios({
         method: 'GET',
         url: `https://intellistock-api.herokuapp.com/companies/${user.id}`
@@ -41,8 +46,6 @@ async function alterarImagem() {
         }).then(response => {
 
             user.img = response.data.imagem;
-
-            localStorage.setItem('user', JSON.stringify(user))
 
             var modal = document.getElementById('bodyModal');
             var alerta = document.createElement('div');
@@ -162,5 +165,5 @@ async function editarUsuario() {
 
 //Logout
 function logout() {
-    localStorage.removeItem('user');
+    
 }

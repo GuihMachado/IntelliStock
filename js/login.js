@@ -24,7 +24,6 @@ async function login(){
             company_id: response.data.user.company_id
         }
 
-        localStorage.setItem('user', JSON.stringify(user))
         const options = {
             headers: {
                 'Content-Type': 'application/json'
@@ -33,21 +32,33 @@ async function login(){
 
         const cache = await caches.open('my-cache');
         
-        await cache.put('/teste123', new Response (`{"id":"${user.id}", "name":"${user.name}", "email":"${user.email}", "token":"${user.token}", "company_id":"${user.company_id}"}`, options))
+        await cache.put('/user', new Response (
+            `
+                {
+                    "id":"${user.id}", 
+                    "name":"${user.name}", 
+                    "email":"${user.email}", 
+                    "token":"${user.token}", 
+                    "company_id":"${user.company_id}"
+                }
+            `
+        , options))
         
-        const optionsReq = {
-            ignoreVary: true, // ignore differences in Headers
-            ignoreMethod: true, // ignore differences in HTTP methods
-            ignoreSearch: true // ignore differences in query strings
-        }
+        const respTest = await cache.match('/user');
         
-        const respTest = await cache.match('/teste123', optionsReq)
-
         respTest.json().then(resposta => {
-            console.log(resposta);
+            console.log(resposta.id);
+
+            // await cache.put('/user', new Response (`{"id":"${resposta.id}"}`))
+            
+            // const test = await cache.match('/user', optionsReq)
+            // test.json().then(r => {
+            //     console.log(r);
+            // })
         })
 
-        // window.location.href = "./views/home.html";
+        
+        window.location.href = "./views/home.html";
     }).catch(error => {
 
         if (error.response.status == 403) {

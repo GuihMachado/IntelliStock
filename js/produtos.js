@@ -1,28 +1,17 @@
-var user = JSON.parse(localStorage.getItem('user') || '{}');
-axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
-
 produtos();
 async function produtos(){
+    const cache = await caches.open('my-cache');
+    
+    const cacheResponse = await cache.match('/user');
+
+    user = await cacheResponse.json()
+    
+    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+
     await axios({
         method: 'GET',
         url: `https://intellistock-api.herokuapp.com/products/company/${user.id}`
     }).then(async (response) => {
-
-        const cache = await caches.open('my-cache');
-
-        const optionsReq = {
-            ignoreVary: true, // ignore differences in Headers
-            ignoreMethod: true, // ignore differences in HTTP methods
-            ignoreSearch: true // ignore differences in query strings
-        }
-        
-        const respTest = await cache.match('/teste123', optionsReq)
-
-        respTest.json().then(resposta => {
-            console.log(resposta.id);
-        })
-
-        console.log(response);
 
         $('#dataTable').DataTable().destroy();
         

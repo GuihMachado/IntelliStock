@@ -239,6 +239,7 @@
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -260,11 +261,26 @@
     </script>
 
     <script>
-        function idCat(id){
+        async function idCat(id) {
 
             $('#idcat').val(id)
             let idcat = $('#idcat').val()
-            console.log(idcat);
+
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+            const cache = await caches.open('my-cache');
+
+            await cache.put('/categoria', new Response(
+                `
+                    {
+                        "id":"${idcat}" 
+                    }
+                `
+            , options))
 
             window.location.href = "../views/produtosByCat.html";
         }
