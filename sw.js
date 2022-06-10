@@ -33,10 +33,10 @@ self.addEventListener('fetch', async event => {
 });
 
 self.addEventListener('install', event => {
-    console.log('Service Worker installing.');
+    console.log(`Event fired: ${event.type}`);
 });
   
 self.addEventListener('activate', event => {
-    console.log('Service Worker activating.');
+    console.log(`Event fired: ${event.type}`);
 });
 

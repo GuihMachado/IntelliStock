@@ -331,3 +331,11 @@ async function deletar(){
         setTimeout(function(){ $('#alertStatus').modal('hide'); alerta.innerHTML = ''}, 1500);
     })
 }
+
+async function logout() {
+    const cache = await caches.open('my-cache');
+    
+    await cache.delete('/user');
+
+    window.location.href = "./index.html";
+}

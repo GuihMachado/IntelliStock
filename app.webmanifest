@@ -15,6 +15,6 @@
 	],
 	"start_url": "index.html?source=pwa",
 	"display": "minimal-ui",
-	"background_color": "#FF6F6F",
-	"theme_color": "#FF6F6F"
+	"background_color": "#4e73df",
+	"theme_color": "#4e73df"
 }

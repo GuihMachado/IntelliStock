@@ -13,14 +13,13 @@ async function meuPerfil() {
 
     await axios({
         method: 'GET',
-        url: `https://intellistock-api.herokuapp.com/companies/${user.id}`
+        url: `https://intellistock-api.herokuapp.com/users/${user.id}`
     }).then(response => {
 
         console.log(user.id);
 
         $('#nome').val(response.data.name);
-        $('#cnpj').val(response.data.cnpj);
-        document.getElementById('img-profile').setAttribute("src", "data:image/jpg;base64," + `${response.data.logo}`);
+        $('#email').val(response.data.email);
 
     }).catch(error => {
         console.log(error);
@@ -32,59 +31,6 @@ async function meuPerfil() {
     $('#empresa').addClass('active');
 }
 
-//Alteração de imagem
-async function alterarImagem() {
-
-    if ($('#img-profile-input').val() != "") {
-
-        var data = new FormData(document.getElementById("form-data"));
-
-        await axios({
-            method: 'PATCH',
-            url: `https://intellistock-api.herokuapp.com/companies/${user.id}`,
-            data
-        }).then(response => {
-
-            user.img = response.data.imagem;
-
-            var modal = document.getElementById('bodyModal');
-            var alerta = document.createElement('div');
-            
-            alerta.innerHTML = `<div class="alert alert-success" role="alert"> Sucesso ao editar a imagem! </div>`;
-            
-            modal.appendChild(alerta);
-
-            $('#alertStatus').modal('show');
-            setTimeout(function(){ $('#alertStatus').modal('hide'); window.location.reload(true); alerta.innerHTML = ''}, 1500);
-            
-        }).catch(error => {
-            console.log(error);
-            window.location.reload(true);
-            var modal = document.getElementById('bodyModal');
-            var alerta = document.createElement('div');
-            
-            alerta.innerHTML = `<div class="alert alert-danger" role="alert"> Erro ao editar a imagem! </div>`;
-            
-            modal.appendChild(alerta);
-
-            $('#alertStatus').modal('show');
-            setTimeout(function(){ $('#alertStatus').modal('hide'); window.location.reload(true); alerta.innerHTML = ''}, 1500);
-            })
-
-    } 
-     else {
-        var modal = document.getElementById('bodyModal');
-        var alerta = document.createElement('div');
-        
-        alerta.innerHTML = `<div class="alert alert-warning" role="alert"> Selecione uma imagem! </div>`;
-        
-        modal.appendChild(alerta);
-
-        $('#alertStatus').modal('show');
-        setTimeout(function(){ $('#alertStatus').modal('hide'); alerta.innerHTML = ''}, 1500);
-    }
-}
-
 //Abertura de modal de edição
 async function EditUser() {
 
@@ -92,11 +38,11 @@ async function EditUser() {
 
     await axios({
         method: 'GET',
-        url: `https://intellistock-api.herokuapp.com/companies/${user.id}`
+        url: `https://intellistock-api.herokuapp.com/users/${user.id}`
     }).then(response => {
 
         $('#nome-edit').val(response.data.name);
-        $('#cnpj-edit').val(response.data.cnpj);
+        $('#email-edit').val(response.data.email);
 
     }).catch(error => {
         console.log(error);
@@ -108,18 +54,18 @@ async function EditUser() {
 
 //Edição de usuário
 async function editarUsuario() {
-    if ($('#nome-edit').val() != "" && $('#cnpj-edit').val() != "") {
+    if ($('#nome-edit').val() != "" && $('#email-edit').val() != "") {
 
         let id = user.id;
         let name = $('#nome-edit').val();
-        let cnpj = $('#cnpj-edit').val();
+        let email = $('#email-edit').val();
 
         await axios({
             method: 'PUT',
-            url: `https://intellistock-api.herokuapp.com/companies/${id}`,
+            url: `https://intellistock-api.herokuapp.com/users/${id}`,
             data: {
                 name,
-                cnpj,
+                email
             }
         }).then(response => {
 
