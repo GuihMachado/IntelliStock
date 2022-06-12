@@ -350,5 +350,5 @@ async function logout() {
     
     await cache.delete('/user');
 
-    window.location.href = "./index.html";
+    window.location.href = "../index.html";
 }

@@ -27,7 +27,7 @@ async function registrar(){
 
         body.appendChild(alerta);
 
-        setTimeout(function(){ window.location.href = "login.html"; }, 1500);
+        setTimeout(function(){ window.location.href = "index.html"; }, 1500);
 
     }).catch(error => {
 

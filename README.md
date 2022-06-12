@@ -11,15 +11,19 @@
 
 Iniciou-se o desenvolvimento da API em NodeJS, disponível no repositório: https://github.com/Fesigo/intellistock-api
 
-O frontend está sendo desenvolvido em PWA, e já possui páginas de login e cadastro de usuário/empresa. Possui uma dashboard (que ainda está em desenvolvimento, portanto não está inteiramente funcional), uma página que lista as categorias de produtos do mercado e páginas nas quais o usuário pode cadastrar e editar as informações dos produtos.
+Foi desenvolvido um Aplicativo em PWA onde a finalidade é ser um aplicativo para controle de estoque de mercados, possui páginas para login e cadastro de usuário/empresa. Possui uma dashboard, onde existe atalhos para suas páginas. Há uma listagem de produtos gerais e também pela categoria selecionada, onde existe a possibilidade de visualizar, adicionar, alterar e excluir um produto. Há também páginas para visualização e alteração das informações de empresa e usuário.
 
 ## Como rodar o projeto
 
 1. É necessário clonar o repositório
 2. Instalar a extensão Live Server
 3. Rodar a extensão
-4. Abrir o link disponibilizado pela mesma em um navegador
-5. OBS: No navegador do computador utilizar o DevTools para visualizar na forma mobile
+4. Abrir o 'chrome://inspect/#devices'
+5. Clicar no botão "Port forwarding"
+6. Adicionar um novo localhost com a mesma porta do Live Server
+7. Conectar seu celular Android com um cabo USB (Certifique que o modo depuração está ativo no aparelho)
+8. Abrir o localhost criado no aplicativo do Google Chrome
+9. OBS: O aplicativo foi desenvolvido com o sistema operacional Microsoft Windows 11
 
 ## Principais Telas
 
@@ -29,8 +33,14 @@ O frontend está sendo desenvolvido em PWA, e já possui páginas de login e cad
 
 ![Produtos](/assets/imgs/produtos.png)
 
+![Produtos por Categoria](/assets/imgs/produtosCat.png.png)
+
 ![Sidebar](/assets/imgs/sidebar.png)
 
 ![Login](/assets/imgs/login.png)
 
 ![Cadastro](/assets/imgs/cadastro.png)
+
+![Empresa](/assets/imgs/empresa.png)
+
+![Perfil](/assets/imgs/perfil.png)
